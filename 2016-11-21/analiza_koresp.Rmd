@@ -1,21 +1,32 @@
 ---
 title: "Analiza korespondencji"
-output: html_notebook
+output:
+  html_document: 
+    keep_md: yes
+  html_notebook: default
 ---
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
 ```{r}
-install.packages(c('vcd','factoextra','ca')) 
+#install.packages(c('vcd','factoextra','ca')) 
 library(ca) # pakiet do analizy korespondencji
 library(vcd) # 
 library(factoextra) # 
 ```
 
-```{r przyklad1}
-dane <- matrix(c(326,38,241,110,3,
-                 688,116,584,188,4,
-                 343,84,909,412,26,
-                 98,48,403,681,85),nrow=4,ncol=5,
-                 byrow=TRUE)
+# Przeprowadzamy analizę korespondencji
+
+Przykładowe dane
+
+```{r przyklad1, echo=TRUE}
+dane <- matrix(c(326, 38, 241, 110, 3,
+                 688, 116, 584, 188, 4,
+                 343, 84, 909, 412, 26,
+                 98, 48, 403, 681, 85),
+               nrow = 4, ncol = 5, byrow = TRUE)
 
 # Etykietyjemy wiersze
 
@@ -32,10 +43,75 @@ colnames(dane) <- c('blondyni',
                     'ciemnowłosi',
                     'bruneci')
 
+print(dane)
+
+## badamy zależoność między zmiennymi
+## funkcja pochodzi z pakietu vcd
+assocstats(dane)
 ```
+
+Przeprowadzamy analizę korespondencji
+
+```{r analiza-koresp}
+wynik <- ca(obj = dane)
+summary(wynik)
+
+plot(wynik)
+
+fviz_ca(wynik) ## wizualizacja wyników z pakietem ggplot2
+```
+
+# Analiza korespondencji w badaniu KdG
+
+Wybieramy dwie zmienne dla roku 2011
+
+1. Ukończony wydział na I stopniu (wydzial1)
+2. Jaką minimalną płacę był(a)byś w stanie zaakceptować (lub zaakceptowałaś/-eś) podejmując stałą pracę? (płaca)
+
+
+```{r kdg}
+load('../../Analiza KdG/datasets/bkl_2011_2013.RData')
+do_tabeli <- subset(x = dane[[1]],
+                    select = c(wydzial1,p13,w,wydzial2),
+                    subset = wydzial1 != 6)
+
+xtabs(~p13 + wydzial1, do_tabeli) 
+
+## w zbiorze znajdują się puste kategorie, należy dane zagregować
+
+do_tabeli$p13 <- ifelse(do_tabeli$p13 %in% 1:2, 2, do_tabeli$p13)
+do_tabeli$p13 <- ifelse(do_tabeli$p13 %in% 4:5, 4, do_tabeli$p13)
+
+do_analizy <- aggregate(formula = w ~ p13 + wydzial1, data = do_tabeli, FUN = sum)
+
+tabela <- xtabs(w ~ p13 + wydzial1, data = do_analizy)
+rownames(tabela) <- c('źle','wyst','dobrze')
+colnames(tabela) <- c('WE','WGM','WIGE','WT','WZ')
+print(tabela)
+summary(tabela) 
+assocstats(tabela) ## jest zależność, zobaczmy jaka
+### przeprowadzamy analizę korespondencji
+
+analiza_kdf <- ca(obj = tabela)
+summary(analiza_kdf)
+
+### wizualizacja z ggplot2
+fviz_ca(analiza_kdf)
+
+statystyki_wiersze <- get_ca_row(analiza_kdf)
+statystyki_kolumny <- get_ca_col(analiza_kdf)
+
+### udziały w tworzeniu wymiarów
+statystyki_wiersze$contrib
+statystyki_kolumny$contrib
+```
+
 
 
 # Źródła informacji (wybrane)
 
 http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-the-visualization-and-the-interpretation-r-software-and-data-mining
+
+
+https://journal.r-project.org/archive/accepted/lombardo-beh.pdf
 
