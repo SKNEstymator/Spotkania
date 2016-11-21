@@ -1,0 +1,14 @@
+---
+title: "Analiza korespondencji"
+output: html_notebook
+---
+
+```{r}
+library(vcd)
+```
+
+
+# Źródła informacji (wybrane)
+
+http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-the-visualization-and-the-interpretation-r-software-and-data-mining
+
