@@ -182,13 +182,40 @@ library(ca) </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGFuZSA8LSBtYXRyaXgoYygzMjYsMzgsMjQxLDExMCwzLFxuICAgICAgICAgICAgICAgICA2ODgsMTE2LDU4NCwxODgsNCxcbiAgICAgICAgICAgICAgICAgMzQzLDg0LDkwOSw0MTIsMjYsXG4gICAgICAgICAgICAgICAgIDk4LDQ4LDQwMyw2ODEsODUpLG5yb3c9NCxuY29sPTUsXG4gICAgICAgICAgICAgICAgIGJ5cm93PVRSVUUpXG5cbiMgRXR5a2lldHlqZW15IHdpZXJzemVcblxucm93bmFtZXMoZGFuZSkgPC0gYygnbmllYmllc2tpZScsXG4gICAgICAgICAgICAgICAgICAgICdqYXNuZScsXG4gICAgICAgICAgICAgICAgICAgICd6aWVsb25lJyxcbiAgICAgICAgICAgICAgICAgICAgJ2NpZW1uZScpXG5cbiMgRXR5a2lldHVqZW15IGtvbHVtbnlcblxuY29sbmFtZXMoZGFuZSkgPC0gYygnYmxvbmR5bmknLFxuICAgICAgICAgICAgICAgICAgICAncnVkemknLFxuICAgICAgICAgICAgICAgICAgICAnc3phdHluaScsXG4gICAgICAgICAgICAgICAgICAgICdjaWVtbm93xYJvc2knLFxuICAgICAgICAgICAgICAgICAgICAnYnJ1bmVjaScpXG5cbmBgYCJ9 -->
+<pre class="r"><code>dane &lt;- matrix(c(326,38,241,110,3,
+                 688,116,584,188,4,
+                 343,84,909,412,26,
+                 98,48,403,681,85),nrow=4,ncol=5,
+                 byrow=TRUE)
+
+# Etykietyjemy wiersze
+
+rownames(dane) &lt;- c('niebieskie',
+                    'jasne',
+                    'zielone',
+                    'ciemne')
+
+# Etykietujemy kolumny
+
+colnames(dane) &lt;- c('blondyni',
+                    'rudzi',
+                    'szatyni',
+                    'ciemnowłosi',
+                    'bruneci')
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <div id="zroda-informacji-wybrane" class="section level1">
 <h1>Źródła informacji (wybrane)</h1>
 <p><a href="http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-the-visualization-and-the-interpretation-r-software-and-data-mining" class="uri">http://www.sthda.com/english/wiki/correspondence-analysis-in-r-the-ultimate-guide-for-the-analysis-the-visualization-and-the-interpretation-r-software-and-data-mining</a></p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQW5hbGl6YSBrb3Jlc3BvbmRlbmNqaSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9Cmluc3RhbGwucGFja2FnZXMoYygndmNkJywnZmFjdG9leHRyYScsJ2NhJykpIApsaWJyYXJ5KHZjZCkgIyAKbGlicmFyeShmYWN0b2V4dHJhKSAjIApsaWJyYXJ5KGNhKSAjIHBha2lldCBkbyBhbmFsaXp5IGtvcmVzcG9uZGVuY2ppCmBgYAoKCiMgxblyw7NkxYJhIGluZm9ybWFjamkgKHd5YnJhbmUpCgpodHRwOi8vd3d3LnN0aGRhLmNvbS9lbmdsaXNoL3dpa2kvY29ycmVzcG9uZGVuY2UtYW5hbHlzaXMtaW4tci10aGUtdWx0aW1hdGUtZ3VpZGUtZm9yLXRoZS1hbmFseXNpcy10aGUtdmlzdWFsaXphdGlvbi1hbmQtdGhlLWludGVycHJldGF0aW9uLXItc29mdHdhcmUtYW5kLWRhdGEtbWluaW5nCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQW5hbGl6YSBrb3Jlc3BvbmRlbmNqaSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9Cmluc3RhbGwucGFja2FnZXMoYygndmNkJywnZmFjdG9leHRyYScsJ2NhJykpIApsaWJyYXJ5KGNhKSAjIHBha2lldCBkbyBhbmFsaXp5IGtvcmVzcG9uZGVuY2ppCmxpYnJhcnkodmNkKSAjIApsaWJyYXJ5KGZhY3RvZXh0cmEpICMgCmBgYAoKYGBge3IgcHJ6eWtsYWQxfQpkYW5lIDwtIG1hdHJpeChjKDMyNiwzOCwyNDEsMTEwLDMsCiAgICAgICAgICAgICAgICAgNjg4LDExNiw1ODQsMTg4LDQsCiAgICAgICAgICAgICAgICAgMzQzLDg0LDkwOSw0MTIsMjYsCiAgICAgICAgICAgICAgICAgOTgsNDgsNDAzLDY4MSw4NSksbnJvdz00LG5jb2w9NSwKICAgICAgICAgICAgICAgICBieXJvdz1UUlVFKQoKIyBFdHlraWV0eWplbXkgd2llcnN6ZQoKcm93bmFtZXMoZGFuZSkgPC0gYygnbmllYmllc2tpZScsCiAgICAgICAgICAgICAgICAgICAgJ2phc25lJywKICAgICAgICAgICAgICAgICAgICAnemllbG9uZScsCiAgICAgICAgICAgICAgICAgICAgJ2NpZW1uZScpCgojIEV0eWtpZXR1amVteSBrb2x1bW55Cgpjb2xuYW1lcyhkYW5lKSA8LSBjKCdibG9uZHluaScsCiAgICAgICAgICAgICAgICAgICAgJ3J1ZHppJywKICAgICAgICAgICAgICAgICAgICAnc3phdHluaScsCiAgICAgICAgICAgICAgICAgICAgJ2NpZW1ub3fFgm9zaScsCiAgICAgICAgICAgICAgICAgICAgJ2JydW5lY2knKQoKYGBgCgoKIyDFuXLDs2TFgmEgaW5mb3JtYWNqaSAod3licmFuZSkKCmh0dHA6Ly93d3cuc3RoZGEuY29tL2VuZ2xpc2gvd2lraS9jb3JyZXNwb25kZW5jZS1hbmFseXNpcy1pbi1yLXRoZS11bHRpbWF0ZS1ndWlkZS1mb3ItdGhlLWFuYWx5c2lzLXRoZS12aXN1YWxpemF0aW9uLWFuZC10aGUtaW50ZXJwcmV0YXRpb24tci1zb2Z0d2FyZS1hbmQtZGF0YS1taW5pbmcKCg==</div>
 
 
 

@@ -5,9 +5,33 @@ output: html_notebook
 
 ```{r}
 install.packages(c('vcd','factoextra','ca')) 
+library(ca) # pakiet do analizy korespondencji
 library(vcd) # 
 library(factoextra) # 
-library(ca) # pakiet do analizy korespondencji
+```
+
+```{r przyklad1}
+dane <- matrix(c(326,38,241,110,3,
+                 688,116,584,188,4,
+                 343,84,909,412,26,
+                 98,48,403,681,85),nrow=4,ncol=5,
+                 byrow=TRUE)
+
+# Etykietyjemy wiersze
+
+rownames(dane) <- c('niebieskie',
+                    'jasne',
+                    'zielone',
+                    'ciemne')
+
+# Etykietujemy kolumny
+
+colnames(dane) <- c('blondyni',
+                    'rudzi',
+                    'szatyni',
+                    'ciemnowłosi',
+                    'bruneci')
+
 ```
 
 
