@@ -4,7 +4,10 @@ output: html_notebook
 ---
 
 ```{r}
-library(vcd)
+install.packages(c('vcd','factoextra','ca')) 
+library(vcd) # 
+library(factoextra) # 
+library(ca) # pakiet do analizy korespondencji
 ```
 
 
