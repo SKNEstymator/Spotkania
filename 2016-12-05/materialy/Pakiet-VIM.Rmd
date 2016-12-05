@@ -1,0 +1,91 @@
+---
+title: "VIM"
+author: "Maciej Beręsewicz"
+date: "12/5/2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE, 
+                      warning = FALSE,
+                      error = FALSE)
+```
+
+Wczytujemy potrzebne pakiety
+
+```{r}
+library(sjPlot)
+library(VIM)
+library(Amelia)
+library(dplyr)
+load('../../../Analiza KdG/datasets/bkl_2011_2013.RData')
+rok <- dane[[1]]
+dim(rok)
+```
+
+## Jak sprawdzić ile mamy braków?
+
+Załóżmy, że chcemy sprawdzić kto wypełnił ankietę ze względu na cechy demograficzne. Wybierzemy zatem następujące zmienne:
+
+* kobieta
+* stopień
+* rok
+* wydzial_*
+* średnia
+* datacollection_status1 (zmienna określająca wypełnienie)
+
+```{r, results='asis'}
+podzbior <- rok %>%
+  select(id,kobieta,rok,wydzial1,wydzial2,inna_uczelnia,
+         datacollection_status1,srednia) %>%
+  mutate(flag = ifelse(is.nan(datacollection_status1) | datacollection_status1 == 0,NA,1)) %>%
+  select(id,kobieta,rok,wydzial1,wydzial2,inna_uczelnia,
+         flag,srednia)
+
+dane <- view_df(
+  x = podzbior,
+  show.values = F,
+  show.labels = T,
+  show.na = T,
+  show.frq = T,
+  hide.progress = T,
+  no.output = T)
+
+cat(dane$knitr)
+```
+
+## Wizualizacja braków danych
+
+
+lub możemy to zrobić inaczej
+
+```{r}
+missmap(as.data.frame(podzbior))
+```
+
+lub inaczej
+
+```{r}
+a <- aggr(podzbior,plot = F)
+summary(a)
+plot(a)
+```
+
+Porównajmy rozkłady
+
+```{r}
+braki <- podzbior[,c('srednia','flag')] %>%
+  as.data.frame()
+
+histMiss(braki)
+```
+
+```{r}
+braki <- podzbior[,c('kobieta','flag')] %>%
+  as.data.frame()
+
+barMiss(braki)
+```
+
+
