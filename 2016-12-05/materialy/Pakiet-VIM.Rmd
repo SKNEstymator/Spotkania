@@ -19,6 +19,7 @@ library(sjPlot)
 library(VIM)
 library(Amelia)
 library(dplyr)
+
 load('../../../Analiza KdG/datasets/bkl_2011_2013.RData')
 rok <- dane[[1]]
 dim(rok)
